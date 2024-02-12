@@ -29,26 +29,28 @@ public class Explorer implements IExplorerRaid {
     @Override
     public String takeDecision() {
         JSONObject decision = new JSONObject();
-        
-        if (counter <= 25) {
-            decision.put("action", "fly");
+        if (counter <= 1) {
+            decision.put("action","fly");
         }
-        else if (counter <= 26) {
-            decision.put("action", "heading");
-            decision.put("parameters", new JSONObject().put("direction", "S"));
-        }
-        else if (counter <= 150) {
-            if (counter % 3 == 0) {
-                decision.put("action", "fly");
-            }
-            else if (counter % 3 == 1) {
-                decision.put("action", "scan");
-            }
-            else {
-                decision.put("action", "echo");
-                decision.put("parameters", new JSONObject().put("direction", "S"));
-            }            
-        }
+        // if (counter <= 25) {
+        //     decision.put("action", "fly");
+        // }
+        // else if (counter <= 26) {
+        //     decision.put("action", "heading");
+        //     decision.put("parameters", new JSONObject().put("direction", "S"));
+        // }
+        // else if (counter <= 150) {
+        //     if (counter % 3 == 0) {
+        //         decision.put("action", "fly");
+        //     }
+        //     else if (counter % 3 == 1) {
+        //         decision.put("action", "scan");
+        //     }
+        //     else {
+        //         decision.put("action", "echo");
+        //         decision.put("parameters", new JSONObject().put("direction", "S"));
+        //     }            
+        // }
         //else if (counter <= 27) {
             //decision.put("action", "echo");
             //decision.put("parameters", new JSONObject().put("direction", "S"));
