@@ -12,7 +12,7 @@ public class Result {
 
     private final Logger logger = LogManager.getLogger();
 
-    public JSONObject initialize (String s) {
+    public JSONObject printResult (String s) {
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
         logger.info("** Response received:\n"+response.toString(2));
         Integer cost = response.getInt("cost");
