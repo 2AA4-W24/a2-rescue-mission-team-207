@@ -35,12 +35,14 @@ public class Explorer implements IExplorerRaid {
         // Step 4: head east, then head north and repeat process
 
         JSONObject decision = new JSONObject();
+
         if (counter < 5) {
             decision.put("action", "fly");
         }
         else {
             decision.put("action", "stop");
         }
+
         // if (counter > 30) {
         //     if (counter == 31) {
         //         decision.put("action", "heading");
@@ -79,24 +81,18 @@ public class Explorer implements IExplorerRaid {
 
         logger.info("** Counter: " + counter);
         counter += 1;
+        
+        String decisionString = decision.toString();
 
-        logger.info("** Decision: {}",decision.toString());
-        return decision.toString();
+        logger.info("** Decision: {}",decisionString);
+        return decisionString;
     }
 
     @Override
     public void acknowledgeResults(String s) {
-        JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
-        logger.info("** Response received:\n"+response.toString(2));
-        Integer cost = response.getInt("cost");
-        logger.info("The cost of the action was {}", cost);
-        String status = response.getString("status");
-        logger.info("The status of the drone is {}", status);
-        JSONObject extraInfo = response.getJSONObject("extras");
-        logger.info("Additional information received: {}", extraInfo);
-        //Result result = new Result();
-        //JSONObject init = result.initialize(s);
-        //int echo = result.echo_result(extraInfo);
+        Result result = new Result();
+        JSONObject init = result.printResult(s);
+        //int echo = result.echo_result(init);
         //logger.info("Echo result: {}", echo);
     }
 
