@@ -4,6 +4,7 @@ public class Decision {
   
   public void decisionControl() {
 
+    //Result newDirection = new Result(echo_result())
     // Fly and echo south in a loop until we echo land
 
   }

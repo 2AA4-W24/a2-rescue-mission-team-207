@@ -15,6 +15,12 @@ public class Explorer implements IExplorerRaid {
     
     private Integer counter = 0;
 
+    private String decisionMade = " "; 
+
+    private Integer newResult = 200;
+
+    private boolean foundGround = false;
+
     @Override
     public void initialize(String s) {
         logger.info("** Initializing the Exploration Command Center");
@@ -36,13 +42,47 @@ public class Explorer implements IExplorerRaid {
 
         JSONObject decision = new JSONObject();
 
-        if (counter < 5) {
-            decision.put("action", "fly");
+        // if (counter < 5) {
+        //     decision.put("action", "fly");
+        // }
+        // else {
+        //     decision.put("action", "stop");
+        // }
+        if (!foundGround){
+            if (newResult != 200){
+                foundGround = true;
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "S"));
+    
+            }
+        
+            else if (decisionMade.equals("fly")){
+                decision.put("action", "echo");
+                decision.put("parameters", new JSONObject().put("direction", "S"));
+            } 
+            else if (decisionMade.equals("echo")){
+                decision.put("action", "scan");
+            }
+            else{
+                decision.put("action", "fly");
+            }   
         }
         else {
-            decision.put("action", "stop");
+            if (newResult == 0){
+                decision.put("action", "stop");
+            }
+            else if (decisionMade.equals("fly")){
+                decision.put("action", "echo");
+                decision.put("parameters", new JSONObject().put("direction", "S"));
+            } 
+            else if (decisionMade.equals("echo")){
+                decision.put("action", "scan");
+            }
+            else {
+                decision.put("action", "fly");
+            } 
         }
-
+        
         // if (counter > 30) {
         //     if (counter == 31) {
         //         decision.put("action", "heading");
@@ -83,6 +123,7 @@ public class Explorer implements IExplorerRaid {
         counter += 1;
         
         String decisionString = decision.toString();
+        decisionMade = decision.getString("action");
 
         logger.info("** Decision: {}",decisionString);
         return decisionString;
@@ -92,8 +133,13 @@ public class Explorer implements IExplorerRaid {
     public void acknowledgeResults(String s) {
         Result result = new Result();
         JSONObject init = result.printResult(s);
+        if (decisionMade == "echo"){
+            newResult = result.echo_result(init);
+            logger.info("Echo result: {}", newResult);
+        }
         //int echo = result.echo_result(init);
         //logger.info("Echo result: {}", echo);
+
     }
 
     @Override
