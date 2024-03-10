@@ -11,6 +11,7 @@ import org.json.JSONTokener;
 
 public class Decision {
   private final Logger logger = LogManager.getLogger();
+  
 
   private boolean foundGround = false;
   private String decisionMade = " "; 
