@@ -16,12 +16,13 @@ public class Decision {
   private boolean foundGround = false;
   private String decisionMade = " "; 
   private Explorer explorer;
-  private Integer newResult = 200;
+  private Integer echoResult = 200;
   private boolean onLand = false;
-  private String direction = "W";
-  private String next_direction = "W";
+  private String direction;
+  private String next_direction;
   private int counter = 0;
-  private boolean finished_check = false;
+  private String turn_direction;
+  private int turn_counter = 0;
   
   public String decisionControl() {
 
@@ -32,34 +33,10 @@ public class Decision {
 
         JSONObject decision = new JSONObject();
 
-        if (counter == 700) {
-            decision.put("action", "stop");
-        }
-        else if (direction == "E") {
-            if (finished_check) {
-                decision.put("action", "echo");
-                decision.put("parameters", new JSONObject().put("direction", "E"));
-                finished_check = false;
-            }
-            if (newResult == 200) {
-                decision.put("action", "stop");
-            }
-            if (next_direction == "S") {
-                logger.info("Turning south");
-                decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", "S"));
-                direction = "S";
-            }
-            else if (next_direction == "N") {
-                logger.info("Turning north");
-                decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", "N"));
-                direction = "N";
-            }
-        }
-        else if (!foundGround){
+        
+        if (!foundGround){
             logger.info("Flying east");
-            if (newResult != 200){
+            if (echoResult != 200){
                 foundGround = true;
                 decision.put("action", "heading");
                 decision.put("parameters", new JSONObject().put("direction", "S"));
@@ -76,10 +53,76 @@ public class Decision {
                 decision.put("action", "fly");
             }   
         }
+        else if (turn_direction == "S") {
+            if (turn_counter == 0) {
+                decision.put("action", "fly");
+            }
+            else if (turn_counter == 1) {
+                decision.put("action", "fly");
+            }
+            else if (turn_counter == 2) {
+                decision.put("action", "fly");
+            }
+            else if (turn_counter == 3) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "E"));
+            }
+            else if (turn_counter == 4) {
+                decision.put("action", "fly");
+            }
+            else if (turn_counter == 5) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "S"));
+            }
+            else if (turn_counter == 6) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "W"));
+            }
+            else {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "S"));
+                turn_direction = "W";
+                direction = "S";
+            }
+            turn_counter += 1;
+        }
+        else if (turn_direction == "N") {
+            if (turn_counter == 0) {
+                decision.put("action", "fly");
+            }
+            else if (turn_counter == 1) {
+                decision.put("action", "fly");
+            }
+            else if (turn_counter == 2) {
+                decision.put("action", "fly");
+            }
+            else if (turn_counter == 3) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "E"));
+            }
+            else if (turn_counter == 4) {
+                decision.put("action", "fly");
+            }
+            else if (turn_counter == 5) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "N"));
+            }
+            else if (turn_counter == 6) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "W"));
+            }
+            else {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "N"));
+                turn_direction = "W";
+                direction = "N";
+            }
+            turn_counter += 1;
+        }
         else if (onLand && direction == "N") {
             logger.info("Flying north");
             if (decisionMade.equals("heading")) {
-                    newResult = 0;
+                    echoResult = 0;
             }
             if (decisionMade.equals("fly")){
                 decision.put("action", "echo");
@@ -88,21 +131,26 @@ public class Decision {
             else if (decisionMade.equals("echo")){
                 decision.put("action", "scan");
             }
-            else if (newResult != 200) {
+            else if (echoResult != 200) {
                 decision.put("action", "fly");
             }
             else {
-                decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", "E"));
-                direction = "E";
-                finished_check = true;
-                next_direction = "S";
+                //function to turn south
+
+                turn_counter = 0;
+                turn_direction = "S";
+                decision.put("action", "fly");
+
+                // decision.put("action", "heading");
+                // decision.put("parameters", new JSONObject().put("direction", "E"));
+                // direction = "E";
+                // next_direction = "S";
             }
         }
         else if (onLand && direction == "S") {
             logger.info("Flying south");
             if (decisionMade.equals("heading")) {
-                newResult = 0;
+                echoResult = 0;
             }
             if (decisionMade.equals("fly")){
                 decision.put("action", "echo");
@@ -111,20 +159,25 @@ public class Decision {
             else if (decisionMade.equals("echo")){
                 decision.put("action", "scan");
             }
-            else if (newResult != 200) {
+            else if (echoResult != 200) {
                 decision.put("action", "fly");
             }
             else {
-                decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", "E"));
-                direction = "E";
-                finished_check = true;
-                next_direction = "N";
+                //function to turn north
+
+                turn_counter = 0;
+                turn_direction = "N";
+                decision.put("action", "fly");
+
+                // decision.put("action", "heading");
+                // decision.put("parameters", new JSONObject().put("direction", "E"));
+                // direction = "E";
+                // next_direction = "N";
             }
         }
         else {
             logger.info("Finding land");
-            if (newResult == 0){
+            if (echoResult == 0){
                 onLand = true;
                 decision.put("action", "fly");
             }
@@ -153,7 +206,7 @@ public class Decision {
   public void useResults(JSONObject resultData) {
     Result result = new Result();
     if (decisionMade.equals("echo")){
-        newResult = result.echo_result(resultData);
+        echoResult = result.echo_result(resultData);
     }
   }
 
