@@ -33,7 +33,9 @@ public class Decision {
 
         JSONObject decision = new JSONObject();
 
-        
+        // if (counter == 800) {
+        //     decision.put("action", "stop");
+        // }
         if (!foundGround){
             logger.info("Flying east");
             if (echoResult != 200){
@@ -45,9 +47,6 @@ public class Decision {
             else if (decisionMade.equals("fly")){
                 decision.put("action", "echo");
                 decision.put("parameters", new JSONObject().put("direction", "S"));
-            } 
-            else if (decisionMade.equals("echo")){
-                decision.put("action", "scan");
             }
             else{
                 decision.put("action", "fly");
@@ -184,9 +183,6 @@ public class Decision {
             else if (decisionMade.equals("fly")){
                 decision.put("action", "echo");
                 decision.put("parameters", new JSONObject().put("direction", "S"));
-            } 
-            else if (decisionMade.equals("echo")){
-                decision.put("action", "scan");
             }
             else {
                 decision.put("action", "fly");
