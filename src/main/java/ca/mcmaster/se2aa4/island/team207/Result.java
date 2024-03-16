@@ -36,4 +36,13 @@ public class Result {
             return 200;
         }
     }
+
+    public int border_range(JSONObject extraInfo) {
+        String found = extraInfo.getString("found");
+        Integer range = extraInfo.getInt("range");
+        if (found.equals("OUT_OF_RANGE")) {
+            return range;
+        }
+        return 200;
+    }
 }
