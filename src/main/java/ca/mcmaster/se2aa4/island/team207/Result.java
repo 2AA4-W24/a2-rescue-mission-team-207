@@ -24,6 +24,12 @@ public class Result {
         return extraInfo;
     }
 
+    public int getCost (String s) {
+        JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
+        Integer cost = response.getInt("cost");
+        return cost;
+    }
+
     public int echo_result(JSONObject extraInfo) {
         String found = extraInfo.getString("found");
         logger.info("Found: {}", found);
@@ -45,4 +51,26 @@ public class Result {
         }
         return 200;
     }
+
+    public String scan_creeks(JSONObject extraInfo) {
+        JSONArray creeks = extraInfo.getJSONArray("creeks");
+        if (creeks.isNull(0)) {
+            return "null";
+        }
+        else {
+            String creekID = creeks.getString(0);
+            return creekID;
+        }
+    }
+    public String scan_site(JSONObject extraInfo) {
+        JSONArray sites = extraInfo.getJSONArray("sites");
+        if (sites.isNull(0)) {
+            return "null";
+        }
+        else {
+            String siteID = sites.getString(0);
+            return siteID;
+        }
+    }
+        
 }

@@ -17,6 +17,8 @@ public class Decision {
   private String decisionMade = " "; 
   private Explorer explorer;
   private Integer echoResult = 200;
+  private String creekResult = " ";
+  private String siteResult = " ";
   private boolean onLand = false;
   private String direction;
   private String next_direction;
@@ -177,16 +179,9 @@ public class Decision {
                 decision.put("action", "fly");
             }
             else {
-                //function to turn south
-
                 turn_counter = 0;
                 turn_direction = "S";
                 decision.put("action", "fly");
-
-                // decision.put("action", "heading");
-                // decision.put("parameters", new JSONObject().put("direction", "E"));
-                // direction = "E";
-                // next_direction = "S";
             }
         }
         else if (onLand && direction == "S") {
@@ -206,16 +201,9 @@ public class Decision {
                 decision.put("action", "fly");
             }
             else {
-                //function to turn north
-
                 turn_counter = 0;
                 turn_direction = "N";
                 decision.put("action", "fly");
-
-                // decision.put("action", "heading");
-                // decision.put("parameters", new JSONObject().put("direction", "E"));
-                // direction = "E";
-                // next_direction = "N";
             }
         }
         else {
@@ -249,16 +237,36 @@ public class Decision {
 
   }
 
-  public void useResults(JSONObject resultData) {
+  public String getDecisionMade () {
+    return decisionMade;
+  }
+
+  public void useEchoResults(JSONObject resultData) {
     Result result = new Result();
     if (decisionMade.equals("echo")){
         echoResult = result.echo_result(resultData);
         if (currentParameter.equals("E")) {
             borderRange = result.border_range(resultData);
         }
+    }       
+  }
+
+  public String useScanCreeks(JSONObject resultData) {
+    Result result = new Result();
+    if (decisionMade.equals("scan")) {
+        creekResult = result.scan_creeks(resultData);
+        return creekResult;
     }
-    
-    
+    return "null";
+  }
+  
+  public String useScanSite(JSONObject resultData) {
+    Result result = new Result();
+    if (decisionMade.equals("scan")) {
+        siteResult = result.scan_site(resultData);
+        return siteResult;
+    }
+    return "null";
   }
 
 }

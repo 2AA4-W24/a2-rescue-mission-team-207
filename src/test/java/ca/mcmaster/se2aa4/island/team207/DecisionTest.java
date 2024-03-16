@@ -17,7 +17,7 @@ public class DecisionTest {
         assertTrue(decisionString.contains("action"));
 
         // Test decision making after ground is found
-        decision.useResults(new JSONObject("{\"result\": 0}")); 
+        decision.useEchoResults(new JSONObject("{\"result\": 0}")); 
         decisionString = decision.decisionControl();
         assertNotNull(decisionString);
         assertTrue(decisionString.contains("action"));

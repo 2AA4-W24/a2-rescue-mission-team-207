@@ -8,6 +8,8 @@ import eu.ace_design.island.bot.IExplorerRaid;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONTokener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Explorer implements IExplorerRaid {
 
@@ -20,6 +22,11 @@ public class Explorer implements IExplorerRaid {
     // private Integer newResult = 200;
 
     // private boolean foundGround = false;
+
+    public int totalCost = 0;
+    public String creeks = "";
+    public String site = "";
+    public List<String> creekIDs = new ArrayList<>();
 
     private Decision decision = new Decision(); 
 
@@ -45,16 +52,27 @@ public class Explorer implements IExplorerRaid {
     public void acknowledgeResults(String s) {
         Result result = new Result();
         JSONObject resultData = result.printResult(s);
-        decision.useResults(resultData);
-        
-        //int echo = result.echo_result(init);
-        //logger.info("Echo result: {}", echo);
-
+        decision.useEchoResults(resultData);
+        String creeksResult = decision.useScanCreeks(resultData);
+        if (creeksResult != "null") {
+            creekIDs.add(creeksResult);
+        }
+        String siteResult = decision.useScanSite(resultData);
+        if (siteResult != "null") {
+            site = siteResult;
+        }
+        totalCost += result.getCost(s);
+        logger.info("Total cost: " + totalCost);
     }
 
     @Override
     public String deliverFinalReport() {
-        return "no creek found";
+        for (String str : creekIDs) {
+            creeks = creeks + " " + str;
+        }
+        logger.info("Creeks found: " + creeks);
+        logger.info("Site found: " + site);
+        return creeks;
     }
 
 }
