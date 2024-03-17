@@ -15,18 +15,14 @@ public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
     
-    // private Integer counter = 0;
+    private final Creeks creeks = new Creeks();
+    private final Site site = new Site();
 
-    // private String decisionMade = " "; 
-
-    // private Integer newResult = 200;
-
-    // private boolean foundGround = false;
 
     public int totalCost = 0;
-    public String creeks = "";
-    public String site = "";
-    public List<String> creekIDs = new ArrayList<>();
+    // public String creeks = "";
+    // public String site = "";
+    // public List<String> creekIDs = new ArrayList<>();
 
     private Decision decision = new Decision();
     private Position position = new Position();
@@ -57,12 +53,12 @@ public class Explorer implements IExplorerRaid {
 
         String creeksResult = decision.useScanCreeks(resultData);
         if (creeksResult != "null") {
-            creekIDs.add(creeksResult);
+            creeks.addCreek(creeksResult);
         }
 
         String siteResult = decision.useScanSite(resultData);
         if (siteResult != "null") {
-            site = siteResult;
+            site.setSite(siteResult);
         }
 
         totalCost += result.getCost(s);
@@ -76,12 +72,12 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String deliverFinalReport() {
-        for (String str : creekIDs) {
-            creeks = creeks + " " + str;
-        }
-        logger.info("Creeks found: " + creeks);
-        logger.info("Site found: " + site);
-        return creeks;
+        List<String> creeksList = creeks.getCreeks();
+        String creeksFound = String.join(" ", creeksList);
+
+        logger.info("Creeks found: " + creeksFound);
+        logger.info("Site found: " + site.getSite());
+        return creeksFound;
     }
 
 }
