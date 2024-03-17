@@ -19,6 +19,8 @@ public class Explorer implements IExplorerRaid {
     private final Site site = new Site();
     int siteposx;
     int siteposy;
+    double min_distance = 100;
+    String closest_creek = "";
 
 
     public int totalCost = 0;
@@ -95,13 +97,25 @@ public class Explorer implements IExplorerRaid {
             creekYpos = creekYpos + String.valueOf(y) + " ";
         }
 
+        for (int i = 0; i < creeksList.size(); i++) {
+            int cx = creekX.get(i);
+            int cy = creekY.get(i);
+            double distance = Math.sqrt(Math.pow((siteposx - cx), 2) + Math.pow((siteposy - cy), 2));
+            if (distance < min_distance) {
+                min_distance = distance;
+                closest_creek = creeksList.get(i);
+            }
+        }
+
         logger.info("Creeks found: " + creeksFound);
         logger.info("Site found: " + site.getSite());
         logger.info("Site X position: " + siteposx);
         logger.info("Site Y position: " + siteposy);
         logger.info("Creek X positions: " + creekXpos);
         logger.info("Creek Y positions: " + creekYpos);
-        return creeksFound;
+        logger.info("Closest creek to site: " + closest_creek);
+        
+        return closest_creek;
     }
 
 }
