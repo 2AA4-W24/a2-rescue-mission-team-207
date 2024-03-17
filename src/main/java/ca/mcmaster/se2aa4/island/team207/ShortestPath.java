@@ -1,8 +1,8 @@
 package ca.mcmaster.se2aa4.island.team207;
 
-public class Drone {
+public class ShortestPath {
   
-  public void drone() {
+  public void ShortestPath() {
     //drone
   }
 }
