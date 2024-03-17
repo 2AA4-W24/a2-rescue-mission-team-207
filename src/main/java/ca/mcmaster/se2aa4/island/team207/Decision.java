@@ -37,7 +37,7 @@ public class Decision {
 
         JSONObject decision = new JSONObject();
 
-        if (borderRange < 3) {
+        if (borderRange == 1) {
             decision.put("action", "stop");
         }
         else if (!foundGround){
