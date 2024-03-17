@@ -28,7 +28,8 @@ public class Explorer implements IExplorerRaid {
     public String site = "";
     public List<String> creekIDs = new ArrayList<>();
 
-    private Decision decision = new Decision(); 
+    private Decision decision = new Decision();
+    private Position position = new Position();
 
 
     @Override
@@ -53,16 +54,24 @@ public class Explorer implements IExplorerRaid {
         Result result = new Result();
         JSONObject resultData = result.printResult(s);
         decision.useEchoResults(resultData);
+
         String creeksResult = decision.useScanCreeks(resultData);
         if (creeksResult != "null") {
             creekIDs.add(creeksResult);
         }
+
         String siteResult = decision.useScanSite(resultData);
         if (siteResult != "null") {
             site = siteResult;
         }
+
         totalCost += result.getCost(s);
         logger.info("Total cost: " + totalCost);
+
+        position.updateDecision(decision);
+        position.change_position();
+        String current_position = position.get_position();
+        logger.info("Current position: " + current_position);
     }
 
     @Override
