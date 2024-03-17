@@ -26,6 +26,9 @@ public class Explorer implements IExplorerRaid {
     // public String site = "";
     // public List<String> creekIDs = new ArrayList<>();
 
+    public List<Integer> creekX = new ArrayList<>();
+    public List<Integer> creekY = new ArrayList<>();
+
     private Decision decision = new Decision();
     private Position position = new Position();
     
@@ -57,6 +60,8 @@ public class Explorer implements IExplorerRaid {
         String creeksResult = decision.useScanCreeks(resultData);
         if (creeksResult != "null") {
             creeks.addCreek(creeksResult);
+            creekX.add(position.get_positionX());
+            creekY.add(position.get_positionY());
         }
 
         String siteResult = decision.useScanSite(resultData);
@@ -81,11 +86,21 @@ public class Explorer implements IExplorerRaid {
     public String deliverFinalReport() {
         List<String> creeksList = creeks.getCreeks();
         String creeksFound = String.join(", ", creeksList);
+        String creekXpos = "";
+        for (Integer x : creekX) {
+            creekXpos = creekXpos + String.valueOf(x) + " ";
+        }
+        String creekYpos = "";
+        for (Integer y : creekY) {
+            creekYpos = creekYpos + String.valueOf(y) + " ";
+        }
 
         logger.info("Creeks found: " + creeksFound);
         logger.info("Site found: " + site.getSite());
         logger.info("Site X position: " + siteposx);
         logger.info("Site Y position: " + siteposy);
+        logger.info("Creek X positions: " + creekXpos);
+        logger.info("Creek Y positions: " + creekYpos);
         return creeksFound;
     }
 
