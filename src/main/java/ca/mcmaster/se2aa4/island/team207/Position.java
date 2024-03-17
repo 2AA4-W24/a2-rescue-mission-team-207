@@ -54,4 +54,16 @@ public class Position {
         String position = "(" + x_position + ", " + y_position + ")";
         return position;
     }
+
+    public int get_positionX() {
+        int posX = x_position;
+        return posX;
+    }
+
+    public int get_positionY() {
+        int posY = y_position;
+        return posY;
+    }
+
+
 }

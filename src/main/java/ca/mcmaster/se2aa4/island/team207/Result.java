@@ -12,6 +12,8 @@ public class Result {
 
     private final Logger logger = LogManager.getLogger();
 
+    Position position = new Position();
+
     public JSONObject printResult (String s) {
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
         logger.info("** Response received:\n"+response.toString(2));
@@ -71,6 +73,16 @@ public class Result {
             String siteID = sites.getString(0);
             return siteID;
         }
+    }
+
+    public int sitePosX() {
+        int siteX  = position.get_positionX();
+        return siteX;
+    }
+
+    public int sitePosY() {
+        int siteY  = position.get_positionY();
+        return siteY;
     }
         
 }

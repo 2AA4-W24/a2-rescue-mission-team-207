@@ -17,6 +17,8 @@ public class Explorer implements IExplorerRaid {
     
     private final Creeks creeks = new Creeks();
     private final Site site = new Site();
+    int siteposx;
+    int siteposy;
 
 
     public int totalCost = 0;
@@ -26,6 +28,7 @@ public class Explorer implements IExplorerRaid {
 
     private Decision decision = new Decision();
     private Position position = new Position();
+    
 
 
     @Override
@@ -59,7 +62,11 @@ public class Explorer implements IExplorerRaid {
         String siteResult = decision.useScanSite(resultData);
         if (siteResult != "null") {
             site.setSite(siteResult);
+            siteposx = position.get_positionX();
+            siteposy = position.get_positionY();
         }
+
+
 
         totalCost += result.getCost(s);
         logger.info("Total cost: " + totalCost);
@@ -73,10 +80,12 @@ public class Explorer implements IExplorerRaid {
     @Override
     public String deliverFinalReport() {
         List<String> creeksList = creeks.getCreeks();
-        String creeksFound = String.join(" ", creeksList);
+        String creeksFound = String.join(", ", creeksList);
 
         logger.info("Creeks found: " + creeksFound);
         logger.info("Site found: " + site.getSite());
+        logger.info("Site X position: " + siteposx);
+        logger.info("Site Y position: " + siteposy);
         return creeksFound;
     }
 
