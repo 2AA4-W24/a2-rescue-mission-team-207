@@ -27,6 +27,9 @@ public class Decision {
   private int turn_counter = 0;
   private int borderRange = 200;
   private String currentParameter = " ";
+  private Integer remainder = 0;
+  
+
   
   public String decisionControl() {
 
@@ -36,6 +39,14 @@ public class Decision {
         // Step 4: head east, then head north and repeat process
 
         JSONObject decision = new JSONObject();
+        Initialize initialize = new Initialize();
+        Result result = new Result();
+
+        // remainder = initialize.getRemaining();
+
+        // if (remainder < 10){
+        //     decision.put("action", "stop");
+        // }
 
         if (borderRange == 1) {
             decision.put("action", "stop");

@@ -9,6 +9,7 @@ public class DecisionTest {
 
     @Test
     public void testDecisionControl() {
+        
         Decision decision = new Decision();
 
         // Test decision making when ground is not found

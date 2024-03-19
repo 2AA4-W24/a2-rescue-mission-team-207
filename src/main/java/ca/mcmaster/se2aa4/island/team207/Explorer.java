@@ -30,21 +30,29 @@ public class Explorer implements IExplorerRaid {
 
     public List<Integer> creekX = new ArrayList<>();
     public List<Integer> creekY = new ArrayList<>();
+    
 
     private Decision decision = new Decision();
     private Position position = new Position();
+    private Integer batteryLevel = 0;
+    private Integer remainingBudget;
     
-
-
+    
     @Override
     public void initialize(String s) {
+        Initialize initialize = new Initialize();
+        Budget budget = new Budget();
         logger.info("** Initializing the Exploration Command Center");
         JSONObject info = new JSONObject(new JSONTokener(new StringReader(s)));
         logger.info("** Initialization info:\n {}",info.toString(2));
         String direction = info.getString("heading");
-        Integer batteryLevel = info.getInt("budget");
+        // Integer batteryLevel = info.getInt("budget");
         logger.info("The drone is facing {}", direction);
-        logger.info("Battery level is {}", batteryLevel);
+        //logger.info("Battery level is {}", batteryLevel);
+        initialize.initialize(s);
+        budget.getInit(s);
+        batteryLevel = budget.useBattery();
+
     }
 
     @Override
@@ -56,6 +64,8 @@ public class Explorer implements IExplorerRaid {
     @Override
     public void acknowledgeResults(String s) {
         Result result = new Result();
+        Initialize initialize = new Initialize();
+        Budget budget = new Budget();
         JSONObject resultData = result.printResult(s);
         decision.useEchoResults(resultData);
 
@@ -73,10 +83,13 @@ public class Explorer implements IExplorerRaid {
             siteposy = position.get_positionY();
         }
 
-
-
-        totalCost += result.getCost(s);
+        //batteryLevel = initialize.getBatteryLevel();
+        //totalCost += result.getCost(s);
+        budget.getResult(s);
+        totalCost += budget.useCost();
+        remainingBudget = budget.getDifference(batteryLevel, totalCost);
         logger.info("Total cost: " + totalCost);
+        logger.info("Remaining budget: " + remainingBudget);
 
         position.updateDecision(decision);
         position.change_position();
