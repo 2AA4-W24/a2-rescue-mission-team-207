@@ -70,12 +70,11 @@ public class Explorer implements IExplorerRaid {
             return decision.decisionControlWest();
         }
         else if (direction.equals("N")) {
-            return decision.decisionControlEast();
+            return decision.decisionControlNorth();
         }
         else {
             return decision.decisionControlEast();
-        }
-        //return decision.stopDecision();        
+        }     
     }
 
     @Override
