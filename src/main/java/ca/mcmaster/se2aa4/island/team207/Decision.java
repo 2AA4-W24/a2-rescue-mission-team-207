@@ -29,9 +29,15 @@ public class Decision {
   private String currentParameter = " ";
   private Integer remainder = 0;
   
-
+    public String stopDecision() {
+        JSONObject stop = new JSONObject();
+        stop.put("action", "stop");
+        String stopString = stop.toString();
+        logger.info("** Decision: {}",stopString);
+        return stopString;
+    }
   
-  public String decisionControl() {
+    public String decisionControl() {
 
         // Step 1: fly, echo south in a loop until we return not "out of range"
         // Step 2: when we echo land, head south and fly, echo in loop until on land

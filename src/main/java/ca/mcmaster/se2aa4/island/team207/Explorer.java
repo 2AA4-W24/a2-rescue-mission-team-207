@@ -35,7 +35,7 @@ public class Explorer implements IExplorerRaid {
     private Decision decision = new Decision();
     private Position position = new Position();
     private Integer batteryLevel = 0;
-    private Integer remainingBudget;
+    private Integer remainingBudget = 100;
     
     
     @Override
@@ -57,8 +57,11 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String takeDecision() {
+        if (remainingBudget < 30) {
+            logger.info("Remaining budget is less than 30. Stopping exploration.");
+            return decision.stopDecision();
+        }
         return decision.decisionControl();
-        
     }
 
     @Override
