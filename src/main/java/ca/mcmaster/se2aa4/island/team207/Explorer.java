@@ -58,23 +58,24 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String takeDecision() {
+        logger.info("Direction: " + direction);
         if (remainingBudget < 30) {
             logger.info("Remaining budget is less than 30. Stopping exploration.");
             return decision.stopDecision();
         }
-        else if (direction == "E") {
+        else if (direction.equals("E")) {
             return decision.decisionControlEast();
         }
-        else if (direction == "W") {
-            return decision.decisionControlEast();
+        else if (direction.equals("W")) {
+            return decision.decisionControlWest();
         }
-        else if (direction == "N") {
+        else if (direction.equals("N")) {
             return decision.decisionControlEast();
         }
         else {
             return decision.decisionControlEast();
         }
-        
+        //return decision.stopDecision();        
     }
 
     @Override

@@ -10,23 +10,22 @@ import org.json.JSONArray;
 import org.json.JSONTokener;
 
 public class Decision {
-  private final Logger logger = LogManager.getLogger();
-  
+    private final Logger logger = LogManager.getLogger();
 
-  private boolean foundGround = false;
-  private String decisionMade = " "; 
-  private Explorer explorer;
-  private Integer echoResult = 200;
-  private String creekResult = " ";
-  private String siteResult = " ";
-  private boolean onLand = false;
-  private String current_direction;
-  private String direction;
-  private int counter = 0;
-  private String turn_direction;
-  private int turn_counter = 0;
-  private int borderRange = 200;
-  private String currentParameter = " ";
+    private boolean foundGround = false;
+    private String decisionMade = " "; 
+    private Explorer explorer;
+    private Integer echoResult = 200;
+    private String creekResult = " ";
+    private String siteResult = " ";
+    private boolean onLand = false;
+    private String current_direction;
+    private String direction;
+    private int counter = 0;
+    private String turn_direction;
+    private int turn_counter = 0;
+    private int borderRange = 200;
+    private String currentParameter = " ";
   
     public String stopDecision() {
         JSONObject stop = new JSONObject();
@@ -302,6 +301,272 @@ public class Decision {
 
     }
 
+    public String decisionControlWest() {
+
+        JSONObject decision = new JSONObject();
+        Initialize initialize = new Initialize();
+        Result result = new Result();
+
+        if (borderRange == 1) {
+            decision.put("action", "stop");
+        }
+        else if (!foundGround){
+            logger.info("Flying west");
+            if (echoResult != 200) {
+                foundGround = true;
+                if (currentParameter.equals("S")) {
+                    decision.put("action", "heading");
+                    decision.put("parameters", new JSONObject().put("direction", "S"));
+                    current_direction = "S";
+                    direction = "WS";
+                }
+                else {
+                    decision.put("action", "heading");
+                    decision.put("parameters", new JSONObject().put("direction", "N"));
+                    current_direction = "N";
+                    direction = "WN";
+                }
+            }
+            else if (decisionMade.equals("fly")){
+                decision.put("action", "echo");
+                decision.put("parameters", new JSONObject().put("direction", "S"));
+            }
+            else if (decisionMade.equals("echo") && currentParameter.equals("S")) {
+                decision.put("action", "echo");
+                decision.put("parameters", new JSONObject().put("direction", "N"));
+            }
+            else{
+                decision.put("action", "fly");
+                direction = "W";
+            }   
+        }
+        else if (turn_direction == "S") {
+            logger.info("Turning south");
+            if (turn_counter == 0) {
+                decision.put("action", "scan");
+            }
+            else if (turn_counter == 1) {
+                decision.put("action", "echo");
+                decision.put("parameters", new JSONObject().put("direction", "W"));
+            }
+            else if (turn_counter == 2) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "E"));
+                direction = "NE";
+            }
+            else if (turn_counter == 3) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "S"));
+                direction = "ES";
+            }
+            else if (turn_counter == 4) {
+                decision.put("action", "fly");
+                direction = "S";
+            }
+            else if (turn_counter == 5) {
+                decision.put("action", "fly");
+                direction = "S";
+            }
+            else if (turn_counter == 6) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "W"));
+                direction = "SW";
+            }
+            else if (turn_counter == 7) {
+                decision.put("action", "fly");
+                direction = "W";
+            }
+            else if (turn_counter == 8) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "N"));
+                direction = "WN";
+            }
+            else if (turn_counter == 9) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "E"));
+                direction = "NE";
+            }
+            else if (turn_counter == 10) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "N"));
+                direction = "EN";
+            }
+            else if (turn_counter == 11) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "W"));
+                direction = "NW";
+            }
+            else {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "S"));
+                direction = "WS";
+                turn_direction = "W";
+                current_direction = "S";
+            }
+            turn_counter += 1;
+        }
+        else if (turn_direction == "N") {
+            logger.info("Turning north");
+            if (turn_counter == 0) {
+                decision.put("action", "scan");
+            }
+            else if (turn_counter == 1) {
+                decision.put("action", "echo");
+                decision.put("parameters", new JSONObject().put("direction", "W"));
+            }
+            else if (turn_counter == 2) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "E"));
+                direction = "SE";
+            }
+            else if (turn_counter == 3) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "N"));
+                direction = "EN";
+            }
+            else if (turn_counter == 4) {
+                decision.put("action", "fly");
+                direction = "N";
+            }
+            else if (turn_counter == 5) {
+                decision.put("action", "fly");
+                direction = "N";
+            }
+            else if (turn_counter == 6) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "W"));
+                direction = "NW";
+            }
+            else if (turn_counter == 7) {
+                decision.put("action", "fly");
+                direction = "W";
+            }
+            else if (turn_counter == 8) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "S"));
+                direction = "WS";
+            }
+            else if (turn_counter == 9) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "E"));
+                direction = "SE";
+            }
+            else if (turn_counter == 10) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "S"));
+                direction = "ES";
+            }
+            else if (turn_counter == 11) {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "W"));
+                direction = "SW";
+            }
+            else {
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "N"));
+                direction = "WN";
+                turn_direction = "W";
+                current_direction = "N";
+            }
+            turn_counter += 1;
+        }
+        else if (onLand && current_direction == "N") {
+            logger.info("Flying north");
+            if (decisionMade.equals("heading")) {
+                decision.put("action", "scan");    
+                echoResult = 0;
+            }
+            if (decisionMade.equals("fly")){
+                decision.put("action", "echo");
+                decision.put("parameters", new JSONObject().put("direction", "N"));
+            } 
+            else if (decisionMade.equals("echo")){
+                decision.put("action", "scan");
+            }
+            else if (echoResult != 200) {
+                decision.put("action", "fly");
+                direction = "N";
+            }
+            else {
+                turn_counter = 0;
+                turn_direction = "S";
+                decision.put("action", "fly");
+                direction = "N";
+            }
+        }
+        else if (onLand && current_direction == "S") {
+            logger.info("Flying south");
+            if (decisionMade.equals("heading")) {
+                decision.put("action", "scan");
+                echoResult = 0;
+            }
+            if (decisionMade.equals("fly")){
+                decision.put("action", "echo");
+                decision.put("parameters", new JSONObject().put("direction", "S"));
+            } 
+            else if (decisionMade.equals("echo")){
+                decision.put("action", "scan");
+            }
+            else if (echoResult != 200) {
+                decision.put("action", "fly");
+                direction = "S";
+            }
+            else {
+                turn_counter = 0;
+                turn_direction = "N";
+                decision.put("action", "fly");
+                direction = "S";
+
+            }
+        }
+        else {
+            logger.info("Flying towards land");
+            if (current_direction == "N") {
+                if (echoResult == 0){
+                    onLand = true;
+                    decision.put("action", "fly");
+                    direction = "N";
+                }
+                else if (decisionMade.equals("fly")){
+                    decision.put("action", "echo");
+                    decision.put("parameters", new JSONObject().put("direction", "N"));
+                }
+                else {
+                    decision.put("action", "fly");
+                    direction = "N";
+                }
+            }
+            else {
+                if (echoResult == 0){
+                    onLand = true;
+                    decision.put("action", "fly");
+                    direction = "S";
+                }
+                else if (decisionMade.equals("fly")){
+                    decision.put("action", "echo");
+                    decision.put("parameters", new JSONObject().put("direction", "S"));
+                }
+                else {
+                    decision.put("action", "fly");
+                    direction = "S";
+                }
+            } 
+        }
+       
+        String decisionString = decision.toString();
+        decisionMade = decision.getString("action");
+        if (decision.has("parameters")) {
+            JSONObject parameters = decision.getJSONObject("parameters");
+            if (parameters.has("direction")) {
+                currentParameter = parameters.getString("direction");
+            }
+        }
+
+        logger.info("** Decision: {}",decisionString);
+        return decisionString;
+
+    }
+
   public String getDecisionMade() {
     return decisionMade;
   }
@@ -314,7 +579,7 @@ public class Decision {
     Result result = new Result();
     if (decisionMade.equals("echo")){
         echoResult = result.echo_result(resultData);
-        if (currentParameter.equals("E")) {
+        if (currentParameter.equals("E") || currentParameter.equals("W")) {
             borderRange = result.border_range(resultData);
         }
     }       
