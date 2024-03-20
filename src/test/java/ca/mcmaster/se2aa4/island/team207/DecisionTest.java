@@ -13,13 +13,13 @@ public class DecisionTest {
         Decision decision = new Decision();
 
         // Test decision making when ground is not found
-        String decisionString = decision.decisionControl();
+        String decisionString = decision.decisionControlEast();
         assertNotNull(decisionString);
         assertTrue(decisionString.contains("action"));
 
         // Test decision making after ground is found
         decision.useEchoResults(new JSONObject("{\"result\": 0}")); 
-        decisionString = decision.decisionControl();
+        decisionString = decision.decisionControlEast();
         assertNotNull(decisionString);
         assertTrue(decisionString.contains("action"));
     }

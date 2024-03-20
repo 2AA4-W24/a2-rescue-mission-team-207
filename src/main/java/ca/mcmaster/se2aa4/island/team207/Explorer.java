@@ -36,6 +36,7 @@ public class Explorer implements IExplorerRaid {
     private Position position = new Position();
     private Integer batteryLevel = 0;
     private Integer remainingBudget = 100;
+    private String direction;
     
     
     @Override
@@ -45,7 +46,7 @@ public class Explorer implements IExplorerRaid {
         logger.info("** Initializing the Exploration Command Center");
         JSONObject info = new JSONObject(new JSONTokener(new StringReader(s)));
         logger.info("** Initialization info:\n {}",info.toString(2));
-        String direction = info.getString("heading");
+        direction = info.getString("heading");
         // Integer batteryLevel = info.getInt("budget");
         logger.info("The drone is facing {}", direction);
         //logger.info("Battery level is {}", batteryLevel);
@@ -61,7 +62,19 @@ public class Explorer implements IExplorerRaid {
             logger.info("Remaining budget is less than 30. Stopping exploration.");
             return decision.stopDecision();
         }
-        return decision.decisionControl();
+        else if (direction == "E") {
+            return decision.decisionControlEast();
+        }
+        else if (direction == "W") {
+            return decision.decisionControlEast();
+        }
+        else if (direction == "N") {
+            return decision.decisionControlEast();
+        }
+        else {
+            return decision.decisionControlEast();
+        }
+        
     }
 
     @Override

@@ -27,7 +27,6 @@ public class Decision {
   private int turn_counter = 0;
   private int borderRange = 200;
   private String currentParameter = " ";
-  private Integer remainder = 0;
   
     public String stopDecision() {
         JSONObject stop = new JSONObject();
@@ -37,38 +36,39 @@ public class Decision {
         return stopString;
     }
   
-    public String decisionControl() {
-
-        // Step 1: fly, echo south in a loop until we return not "out of range"
-        // Step 2: when we echo land, head south and fly, echo in loop until on land
-        // Step 3: fly south, scan, echo in direction in a loop until we are out of land
-        // Step 4: head east, then head north and repeat process
+    public String decisionControlEast() {
 
         JSONObject decision = new JSONObject();
         Initialize initialize = new Initialize();
         Result result = new Result();
-
-        // remainder = initialize.getRemaining();
-
-        // if (remainder < 10){
-        //     decision.put("action", "stop");
-        // }
 
         if (borderRange == 1) {
             decision.put("action", "stop");
         }
         else if (!foundGround){
             logger.info("Flying east");
-            if (echoResult != 200){
+            if (echoResult != 200) {
                 foundGround = true;
-                decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", "S"));
-                current_direction = "S";
-                direction = "ES";
+                if (currentParameter.equals("S")) {
+                    decision.put("action", "heading");
+                    decision.put("parameters", new JSONObject().put("direction", "S"));
+                    current_direction = "S";
+                    direction = "ES";
+                }
+                else {
+                    decision.put("action", "heading");
+                    decision.put("parameters", new JSONObject().put("direction", "N"));
+                    current_direction = "N";
+                    direction = "EN";
+                }
             }
             else if (decisionMade.equals("fly")){
                 decision.put("action", "echo");
                 decision.put("parameters", new JSONObject().put("direction", "S"));
+            }
+            else if (decisionMade.equals("echo") && currentParameter.equals("S")) {
+                decision.put("action", "echo");
+                decision.put("parameters", new JSONObject().put("direction", "N"));
             }
             else{
                 decision.put("action", "fly");
@@ -256,18 +256,35 @@ public class Decision {
         }
         else {
             logger.info("Flying towards land");
-            if (echoResult == 0){
-                onLand = true;
-                decision.put("action", "fly");
-                direction = "S";
-            }
-            else if (decisionMade.equals("fly")){
-                decision.put("action", "echo");
-                decision.put("parameters", new JSONObject().put("direction", "S"));
+            if (current_direction == "N") {
+                if (echoResult == 0){
+                    onLand = true;
+                    decision.put("action", "fly");
+                    direction = "N";
+                }
+                else if (decisionMade.equals("fly")){
+                    decision.put("action", "echo");
+                    decision.put("parameters", new JSONObject().put("direction", "N"));
+                }
+                else {
+                    decision.put("action", "fly");
+                    direction = "N";
+                }
             }
             else {
-                decision.put("action", "fly");
-                direction = "S";
+                if (echoResult == 0){
+                    onLand = true;
+                    decision.put("action", "fly");
+                    direction = "S";
+                }
+                else if (decisionMade.equals("fly")){
+                    decision.put("action", "echo");
+                    decision.put("parameters", new JSONObject().put("direction", "S"));
+                }
+                else {
+                    decision.put("action", "fly");
+                    direction = "S";
+                }
             } 
         }
        
@@ -283,7 +300,7 @@ public class Decision {
         logger.info("** Decision: {}",decisionString);
         return decisionString;
 
-  }
+    }
 
   public String getDecisionMade() {
     return decisionMade;
