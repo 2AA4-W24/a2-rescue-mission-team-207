@@ -73,7 +73,7 @@ public class Explorer implements IExplorerRaid {
             return decision.decisionControlNorth();
         }
         else {
-            return decision.decisionControlEast();
+            return decision.decisionControlSouth();
         }     
     }
 
