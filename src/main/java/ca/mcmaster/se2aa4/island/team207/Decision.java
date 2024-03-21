@@ -79,61 +79,57 @@ public class Decision {
             if (turn_counter == 0) {
                 decision.put("action", "scan");
             }
+            
             else if (turn_counter == 1) {
                 decision.put("action", "echo");
                 decision.put("parameters", new JSONObject().put("direction", "E"));
             }
             else if (turn_counter == 2) {
                 decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", "W"));
-                direction = "NW";
+                decision.put("parameters", new JSONObject().put("direction", "E"));
+                direction = "NE";
             }
             else if (turn_counter == 3) {
-                decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", "S"));
-                direction = "WS";
+                decision.put("action", "scan");
             }
             else if (turn_counter == 4) {
-                decision.put("action", "fly");
-                direction = "S";
+                decision.put("action", "heading");
+                decision.put("parameters", new JSONObject().put("direction", "S"));
+                direction = "ES";
             }
             else if (turn_counter == 5) {
-                decision.put("action", "fly");
-                direction = "S";
-            }
-            else if (turn_counter == 6) {
-                decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", "E"));
-                direction = "SE";
-            }
-            else if (turn_counter == 7) {
-                decision.put("action", "fly");
-                direction = "E";
-            }
-            else if (turn_counter == 8) {
-                decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", "N"));
-                direction = "EN";
-            }
-            else if (turn_counter == 9) {
                 decision.put("action", "heading");
                 decision.put("parameters", new JSONObject().put("direction", "W"));
-                direction = "NW";
+                direction = "SW";
             }
-            else if (turn_counter == 10) {
+            else if (turn_counter == 6) {
+                decision.put("action", "fly");
+                direction = "W";
+            }
+            else if (turn_counter == 7) {
                 decision.put("action", "heading");
                 decision.put("parameters", new JSONObject().put("direction", "N"));
                 direction = "WN";
             }
-            else if (turn_counter == 11) {
+            else if (turn_counter == 8) {
                 decision.put("action", "heading");
                 decision.put("parameters", new JSONObject().put("direction", "E"));
                 direction = "NE";
             }
-            else {
+            else if (turn_counter == 9) {
+                decision.put("action", "scan");
+            }
+            else if (turn_counter == 10) {
                 decision.put("action", "heading");
                 decision.put("parameters", new JSONObject().put("direction", "S"));
                 direction = "ES";
+            }
+            else if (turn_counter == 11) {
+                decision.put("action", "scan");
+            }
+            else {
+                decision.put("action", "fly");
+                direction = "S";
                 turn_direction = "W";
                 current_direction = "S";
             }
@@ -150,55 +146,55 @@ public class Decision {
             }
             else if (turn_counter == 2) {
                 decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", "W"));
-                direction = "SW";
+                decision.put("parameters", new JSONObject().put("direction", "E"));
+                direction = "SE";
             }
             else if (turn_counter == 3) {
+                decision.put("action", "scan");
+            }
+
+            else if (turn_counter == 4) {
                 decision.put("action", "heading");
                 decision.put("parameters", new JSONObject().put("direction", "N"));
-                direction = "WN";
+                direction = "EN";
             }
-            else if (turn_counter == 4) {
-                decision.put("action", "fly");
-                direction = "N";
-            }
+            
             else if (turn_counter == 5) {
-                decision.put("action", "fly");
-                direction = "N";
-            }
-            else if (turn_counter == 6) {
-                decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", "E"));
-                direction = "NE";
-            }
-            else if (turn_counter == 7) {
-                decision.put("action", "fly");
-                direction = "E";
-            }
-            else if (turn_counter == 8) {
-                decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", "S"));
-                direction = "ES";
-            }
-            else if (turn_counter == 9) {
                 decision.put("action", "heading");
                 decision.put("parameters", new JSONObject().put("direction", "W"));
-                direction = "SW";
+                direction = "NW";
             }
-            else if (turn_counter == 10) {
+            else if (turn_counter == 6) {
+                decision.put("action", "fly");
+                direction = "W";
+            }
+            else if (turn_counter == 7) {
                 decision.put("action", "heading");
                 decision.put("parameters", new JSONObject().put("direction", "S"));
                 direction = "WS";
             }
-            else if (turn_counter == 11) {
+            else if (turn_counter == 8) {
                 decision.put("action", "heading");
                 decision.put("parameters", new JSONObject().put("direction", "E"));
                 direction = "SE";
             }
-            else {
+
+            else if (turn_counter == 9) {
+                decision.put("action", "scan");
+            }
+        
+            else if (turn_counter == 10){
                 decision.put("action", "heading");
                 decision.put("parameters", new JSONObject().put("direction", "N"));
                 direction = "EN";
+                
+            }
+            else if (turn_counter == 11) {
+                decision.put("action", "scan");
+            }
+            else {
+                decision.put("action", "fly");
+                direction = "N";
                 turn_direction = "W";
                 current_direction = "N";
             }
