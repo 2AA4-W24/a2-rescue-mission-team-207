@@ -115,33 +115,28 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String deliverFinalReport() {
+        ShortestPath shortestPath = new ShortestPath();
         List<String> creeksList = creeks.getCreeks();
         String creeksFound = String.join(", ", creeksList);
-        String creekXpos = "";
-        for (Integer x : creekX) {
-            creekXpos = creekXpos + String.valueOf(x) + " ";
-        }
-        String creekYpos = "";
-        for (Integer y : creekY) {
-            creekYpos = creekYpos + String.valueOf(y) + " ";
-        }
+        // String creekXpos = "";
+        // for (Integer x : creekX) {
+        //     creekXpos = creekXpos + String.valueOf(x) + " ";
+        // }
+        // String creekYpos = "";
+        // for (Integer y : creekY) {
+        //     creekYpos = creekYpos + String.valueOf(y) + " ";
+        // }
 
-        for (int i = 0; i < creeksList.size(); i++) {
-            int cx = creekX.get(i);
-            int cy = creekY.get(i);
-            double distance = Math.sqrt(Math.pow((siteposx - cx), 2) + Math.pow((siteposy - cy), 2));
-            if (distance < min_distance) {
-                min_distance = distance;
-                closest_creek = creeksList.get(i);
-            }
-        }
+        String closest_creek = shortestPath.findClosestCreek(creeksList, creekX, creekY, siteposx, siteposy);
+        String creekPositions = shortestPath.printCreeks(creekX, creekY);
 
         logger.info("Creeks found: " + creeksFound);
         logger.info("Site found: " + site.getSite());
         logger.info("Site X position: " + siteposx);
         logger.info("Site Y position: " + siteposy);
-        logger.info("Creek X positions: " + creekXpos);
-        logger.info("Creek Y positions: " + creekYpos);
+        // logger.info("Creek X positions: " + creekXpos);
+        // logger.info("Creek Y positions: " + creekYpos);
+        logger.info(creekPositions);
         logger.info("Closest creek to site: " + closest_creek);
         
         return closest_creek;
