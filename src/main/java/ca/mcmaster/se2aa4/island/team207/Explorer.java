@@ -24,9 +24,6 @@ public class Explorer implements IExplorerRaid {
 
 
     public int totalCost = 0;
-    // public String creeks = "";
-    // public String site = "";
-    // public List<String> creekIDs = new ArrayList<>();
 
     public List<Integer> creekX = new ArrayList<>();
     public List<Integer> creekY = new ArrayList<>();
@@ -58,22 +55,12 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String takeDecision() {
-        logger.info("Direction: " + direction);
         if (remainingBudget < 30) {
             logger.info("Remaining budget is less than 30. Stopping exploration.");
             return decision.stopDecision();
         }
-        else if (direction.equals("E")) {
-            return decision.decisionControlEast();
-        }
-        else if (direction.equals("W")) {
-            return decision.decisionControlWest();
-        }
-        else if (direction.equals("N")) {
-            return decision.decisionControlNorth();
-        }
         else {
-            return decision.decisionControlSouth();
+            return decision.decisionControl(direction);
         }     
     }
 
