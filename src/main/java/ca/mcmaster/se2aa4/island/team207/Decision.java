@@ -44,6 +44,11 @@ public class Decision {
         Direction rightDirection = initialDirection.getRightDirection();
         Direction oppositeDirection = initialDirection.getOppositeDirection();
 
+        String rightDir = rightDirection.directionToString();
+        String leftDir = leftDirection.directionToString();
+        String oppositeDir = oppositeDirection.directionToString();
+        String initialDir = initialDirection.directionToString();
+
         logger.info("Initial direction: {}", initialDirection);
 
         if (borderRange == 1) {
@@ -55,104 +60,104 @@ public class Decision {
                 foundGround = true;
                 if (currentParameter.equals(rightDirection.directionToString())) {
                     decision.put("action", "heading");
-                    decision.put("parameters", new JSONObject().put("direction", rightDirection.directionToString()));
+                    decision.put("parameters", new JSONObject().put("direction", rightDir));
                     current_direction = rightDirection.directionToString();
-                    direction = "ES";
+                    direction = initialDir + rightDir;
                 }
                 else {
                     decision.put("action", "heading");
-                    decision.put("parameters", new JSONObject().put("direction", leftDirection.directionToString()));
+                    decision.put("parameters", new JSONObject().put("direction", leftDir));
                     current_direction = leftDirection.directionToString();
-                    direction = "EN";
+                    direction = initialDir + leftDir;
                 }
             }
             else if (decisionMade.equals("fly")){
                 decision.put("action", "echo");
-                decision.put("parameters", new JSONObject().put("direction", rightDirection.directionToString()));
+                decision.put("parameters", new JSONObject().put("direction", rightDir));
             }
-            else if (decisionMade.equals("echo") && currentParameter.equals(rightDirection.directionToString())) {
+            else if (decisionMade.equals("echo") && currentParameter.equals(rightDir)) {
                 decision.put("action", "echo");
-                decision.put("parameters", new JSONObject().put("direction", leftDirection.directionToString()));
+                decision.put("parameters", new JSONObject().put("direction", leftDir));
             }
             else{
                 decision.put("action", "fly");
-                direction = "E";
+                direction = initialDir;
             }   
         }
-        else if (turn_direction.equals(rightDirection.directionToString())) {
-            logger.info("Turning south");
+        else if (turn_direction.equals(rightDir)) {
+            logger.info("Turning around");
             if (turn_counter == 0) {
                 decision.put("action", "scan");
             }
             
             else if (turn_counter == 1) {
                 decision.put("action", "echo");
-                decision.put("parameters", new JSONObject().put("direction", initialDirection.directionToString()));
+                decision.put("parameters", new JSONObject().put("direction", initialDir));
             }
             else if (turn_counter == 2) {
                 decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", initialDirection.directionToString()));
-                direction = "NE";
+                decision.put("parameters", new JSONObject().put("direction", initialDir));
+                direction = leftDir + initialDir;
             }
             else if (turn_counter == 3) {
                 decision.put("action", "scan");
             }
             else if (turn_counter == 4) {
                 decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", rightDirection.directionToString()));
-                direction = "ES";
+                decision.put("parameters", new JSONObject().put("direction", rightDir));
+                direction = initialDir + rightDir;
             }
             else if (turn_counter == 5) {
                 decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", oppositeDirection.directionToString()));
-                direction = "SW";
+                decision.put("parameters", new JSONObject().put("direction", oppositeDir));
+                direction = rightDir + oppositeDir;
             }
             else if (turn_counter == 6) {
                 decision.put("action", "fly");
-                direction = "W";
+                direction = oppositeDir;
             }
             else if (turn_counter == 7) {
                 decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", leftDirection.directionToString()));
-                direction = "WN";
+                decision.put("parameters", new JSONObject().put("direction", leftDir));
+                direction = oppositeDir + leftDir;
             }
             else if (turn_counter == 8) {
                 decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", initialDirection.directionToString()));
-                direction = "NE";
+                decision.put("parameters", new JSONObject().put("direction", initialDir));
+                direction = leftDir + initialDir;
             }
             else if (turn_counter == 9) {
                 decision.put("action", "scan");
             }
             else if (turn_counter == 10) {
                 decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", rightDirection.directionToString()));
-                direction = "ES";
+                decision.put("parameters", new JSONObject().put("direction", rightDir));
+                direction = initialDir + rightDir;
             }
             else if (turn_counter == 11) {
                 decision.put("action", "scan");
             }
             else {
                 decision.put("action", "fly");
-                direction = "S";
+                direction = rightDir;
                 turn_direction = " ";
-                current_direction = rightDirection.directionToString();
+                current_direction = rightDir;
             }
             turn_counter += 1;
         }
         else if (turn_direction.equals(leftDirection.directionToString())) {
-            logger.info("Turning north");
+            logger.info("Turning around");
             if (turn_counter == 0) {
                 decision.put("action", "scan");
             }
             else if (turn_counter == 1) {
                 decision.put("action", "echo");
-                decision.put("parameters", new JSONObject().put("direction", initialDirection.directionToString()));
+                decision.put("parameters", new JSONObject().put("direction", initialDir));
             }
             else if (turn_counter == 2) {
                 decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", initialDirection.directionToString()));
-                direction = "SE";
+                decision.put("parameters", new JSONObject().put("direction", initialDir));
+                direction = rightDir + initialDir;
             }
             else if (turn_counter == 3) {
                 decision.put("action", "scan");
@@ -160,28 +165,28 @@ public class Decision {
 
             else if (turn_counter == 4) {
                 decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", leftDirection.directionToString()));
-                direction = "EN";
+                decision.put("parameters", new JSONObject().put("direction", leftDir));
+                direction = initialDir + leftDir;
             }
             
             else if (turn_counter == 5) {
                 decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", oppositeDirection.directionToString()));
-                direction = "NW";
+                decision.put("parameters", new JSONObject().put("direction", oppositeDir));
+                direction = leftDir + oppositeDir;
             }
             else if (turn_counter == 6) {
                 decision.put("action", "fly");
-                direction = "W";
+                direction = oppositeDir;
             }
             else if (turn_counter == 7) {
                 decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", rightDirection.directionToString()));
-                direction = "WS";
+                decision.put("parameters", new JSONObject().put("direction", rightDir));
+                direction = oppositeDir + rightDir;
             }
             else if (turn_counter == 8) {
                 decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", initialDirection.directionToString()));
-                direction = "SE";
+                decision.put("parameters", new JSONObject().put("direction", initialDir));
+                direction = rightDir + initialDir;
             }
 
             else if (turn_counter == 9) {
@@ -190,8 +195,8 @@ public class Decision {
         
             else if (turn_counter == 10){
                 decision.put("action", "heading");
-                decision.put("parameters", new JSONObject().put("direction", leftDirection.directionToString()));
-                direction = "EN";
+                decision.put("parameters", new JSONObject().put("direction", leftDir));
+                direction = initialDir + leftDir;
                 
             }
             else if (turn_counter == 11) {
@@ -199,58 +204,58 @@ public class Decision {
             }
             else {
                 decision.put("action", "fly");
-                direction = "N";
+                direction = leftDir;
                 turn_direction = " ";
-                current_direction = leftDirection.directionToString();
+                current_direction = leftDir;
             }
             turn_counter += 1;
         }
-        else if (onLand && current_direction.equals(leftDirection.directionToString())) {
-            logger.info("Flying north");
+        else if (onLand && current_direction.equals(leftDir)) {
+            logger.info("Scanning for creeks");
             if (decisionMade.equals("heading")) {
                 decision.put("action", "scan");    
                 echoResult = 0;
             }
             if (decisionMade.equals("fly")){
                 decision.put("action", "echo");
-                decision.put("parameters", new JSONObject().put("direction", leftDirection.directionToString()));
+                decision.put("parameters", new JSONObject().put("direction", leftDir));
             } 
             else if (decisionMade.equals("echo")){
                 decision.put("action", "scan");
             }
             else if (echoResult != 200) {
                 decision.put("action", "fly");
-                direction = "N";
+                direction = leftDir;
             }
             else {
                 turn_counter = 0;
-                turn_direction = rightDirection.directionToString();
+                turn_direction = rightDir;
                 decision.put("action", "fly");
-                direction = "N";
+                direction = leftDir;
             }
         }
-        else if (onLand && current_direction.equals(rightDirection.directionToString())) {
-            logger.info("Flying south");
+        else if (onLand && current_direction.equals(rightDir)) {
+            logger.info("Scanning for creeks");
             if (decisionMade.equals("heading")) {
                 decision.put("action", "scan");
                 echoResult = 0;
             }
             if (decisionMade.equals("fly")){
                 decision.put("action", "echo");
-                decision.put("parameters", new JSONObject().put("direction", rightDirection.directionToString()));
+                decision.put("parameters", new JSONObject().put("direction", rightDir));
             } 
             else if (decisionMade.equals("echo")){
                 decision.put("action", "scan");
             }
             else if (echoResult != 200) {
                 decision.put("action", "fly");
-                direction = "S";
+                direction = rightDir;
             }
             else {
                 turn_counter = 0;
-                turn_direction = leftDirection.directionToString();
+                turn_direction = leftDir;
                 decision.put("action", "fly");
-                direction = "S";
+                direction = rightDir;
 
             }
         }
