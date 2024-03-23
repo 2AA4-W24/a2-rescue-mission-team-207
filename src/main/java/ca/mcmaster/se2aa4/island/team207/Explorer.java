@@ -34,6 +34,7 @@ public class Explorer implements IExplorerRaid {
     private Integer batteryLevel = 0;
     private Integer remainingBudget = 100;
     private String direction;
+
     
     
     @Override
