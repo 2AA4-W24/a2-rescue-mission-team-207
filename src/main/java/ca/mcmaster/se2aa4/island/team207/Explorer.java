@@ -1,5 +1,6 @@
 package ca.mcmaster.se2aa4.island.team207;
 
+import ca.mcmaster.se2aa4.island.team207.Decisions.Decision;
 import java.io.StringReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,19 +23,20 @@ public class Explorer implements IExplorerRaid {
     double min_distance = 100;
     String closest_creek = "";
 
-
     public int totalCost = 0;
 
     public List<Integer> creekX = new ArrayList<>();
     public List<Integer> creekY = new ArrayList<>();
     
-
-    private Decision decision = new Decision();
+    private Decision decision = Decision.getInstance();
     private Position position = new Position();
     private Integer batteryLevel = 0;
     private Integer remainingBudget = 100;
-    private String direction;
-    
+    private String init_direction;
+    private String rightDir;
+    private String leftDir;
+    private String oppositeDir;
+    private String initialDir;
     
     @Override
     public void initialize(String s) {
@@ -43,13 +45,23 @@ public class Explorer implements IExplorerRaid {
         logger.info("** Initializing the Exploration Command Center");
         JSONObject info = new JSONObject(new JSONTokener(new StringReader(s)));
         logger.info("** Initialization info:\n {}",info.toString(2));
-        direction = info.getString("heading");
+        init_direction = info.getString("heading");
         // Integer batteryLevel = info.getInt("budget");
-        logger.info("The drone is facing {}", direction);
+        logger.info("The drone is facing {}", init_direction);
         //logger.info("Battery level is {}", batteryLevel);
         initialize.initialize(s);
         budget.getInit(s);
         batteryLevel = budget.useBattery();
+
+        Direction initialDirection = Direction.stringToDirection(init_direction);
+        Direction leftDirection = initialDirection.getLeftDirection();
+        Direction rightDirection = initialDirection.getRightDirection();
+        Direction oppositeDirection = initialDirection.getOppositeDirection();
+
+        rightDir = rightDirection.directionToString();
+        leftDir = leftDirection.directionToString();
+        oppositeDir = oppositeDirection.directionToString();
+        initialDir = initialDirection.directionToString();
 
     }
 
@@ -60,7 +72,7 @@ public class Explorer implements IExplorerRaid {
             return decision.stopDecision();
         }
         else {
-            return decision.decisionControl(direction);
+            return decision.decisionControl(rightDir, leftDir, oppositeDir, initialDir);
         }     
     }
 

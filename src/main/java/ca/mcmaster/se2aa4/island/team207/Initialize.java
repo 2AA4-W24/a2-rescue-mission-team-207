@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONTokener;
 
-import ca.mcmaster.se2aa4.island.team207.Result;
+//import ca.mcmaster.se2aa4.island.team207.Result;
 
 
 public class Initialize {
