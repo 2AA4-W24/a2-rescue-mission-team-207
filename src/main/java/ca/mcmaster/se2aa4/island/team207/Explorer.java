@@ -14,26 +14,25 @@ import java.util.List;
 public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
-    
-    private final Creeks creeks = new Creeks();
-    private final Site site = new Site();
-    int siteposx;
-    int siteposy;
-    double min_distance = 100;
-    String closest_creek = "";
-
-
-    public int totalCost = 0;
-
-    public List<Integer> creekX = new ArrayList<>();
-    public List<Integer> creekY = new ArrayList<>();
+    private static final int MIN_BUDGET_THRESHOLD = 30;
     
 
-    private Decision decision = new Decision();
+    private Creeks creeks = new Creeks();
+    private Site site = new Site();
     private Position position = new Position();
-    private Integer batteryLevel = 0;
-    private Integer remainingBudget = 100;
+    private Decision decision = new Decision();
+
+    private int siteposx;
+    private int siteposy;
+    private int totalCost = 0;
+    private int batteryLevel = 0;
+    private int remainingBudget = 100;
     private String direction;
+
+    private double min_distance = 100;
+    private String closest_creek = "";
+    private List<Integer> creekX = new ArrayList<>();
+    private List<Integer> creekY = new ArrayList<>();
 
     
     
@@ -106,15 +105,6 @@ public class Explorer implements IExplorerRaid {
         ShortestPath shortestPath = new ShortestPath();
         List<String> creeksList = creeks.getCreeks();
         String creeksFound = String.join(", ", creeksList);
-        // String creekXpos = "";
-        // for (Integer x : creekX) {
-        //     creekXpos = creekXpos + String.valueOf(x) + " ";
-        // }
-        // String creekYpos = "";
-        // for (Integer y : creekY) {
-        //     creekYpos = creekYpos + String.valueOf(y) + " ";
-        // }
-
         String closest_creek = shortestPath.findClosestCreek(creeksList, creekX, creekY, siteposx, siteposy);
         String creekPositions = shortestPath.printCreeks(creekX, creekY);
 
@@ -122,8 +112,6 @@ public class Explorer implements IExplorerRaid {
         logger.info("Site found: " + site.getSite());
         logger.info("Site X position: " + siteposx);
         logger.info("Site Y position: " + siteposy);
-        // logger.info("Creek X positions: " + creekXpos);
-        // logger.info("Creek Y positions: " + creekYpos);
         logger.info(creekPositions);
         logger.info("Closest creek to site: " + closest_creek);
         

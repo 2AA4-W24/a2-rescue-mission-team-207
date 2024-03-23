@@ -17,8 +17,8 @@ public class Initialize {
 
     public void initialize(String s) {
         JSONObject info = new JSONObject(new JSONTokener(new StringReader(s)));
-        batteryLevel = info.getInt("budget");
-        direction = info.getString("heading");
+        this.batteryLevel = info.getInt("budget");
+        this.direction = info.getString("heading");
     }
 
     public int getBatteryLevel() {

@@ -26,10 +26,9 @@ public class Result {
         return extraInfo;
     }
 
-    public int getCost (String s) {
+    public int getCost(String s) {
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
-        Integer cost = response.getInt("cost");
-        return cost;
+        return response.getInt("cost");
     }
 
     public int echo_result(JSONObject extraInfo) {
