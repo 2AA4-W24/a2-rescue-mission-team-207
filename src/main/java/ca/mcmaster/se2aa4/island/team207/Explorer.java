@@ -1,18 +1,18 @@
 package ca.mcmaster.se2aa4.island.team207;
 
-import ca.mcmaster.se2aa4.island.team207.Decisions.Decision;
-import ca.mcmaster.se2aa4.island.team207.POIs.*;
-import ca.mcmaster.se2aa4.island.team207.Power.*;
-import java.io.StringReader;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import eu.ace_design.island.bot.IExplorerRaid;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONTokener;
 import java.util.ArrayList;
 import java.util.List;
+
+import ca.mcmaster.se2aa4.island.team207.Decisions.Decision;
+import ca.mcmaster.se2aa4.island.team207.POIs.*;
+import ca.mcmaster.se2aa4.island.team207.Power.*;
+import java.io.StringReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Explorer implements IExplorerRaid {
 
@@ -97,8 +97,8 @@ public class Explorer implements IExplorerRaid {
             siteposy = position.get_positionY();
         }
 
-        cost.getResult(s);
-        totalCost += cost.useCost();
+        
+        totalCost += cost.getCost(s);
         remainingBudget = budget.getDifference(batteryLevel, totalCost);
         logger.info("Total cost: " + totalCost);
         logger.info("Remaining budget: " + remainingBudget);

@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.island.team207;
+package ca.mcmaster.se2aa4.island.team207.POIs;
 
 import java.util.List;
 import java.lang.StringBuilder;
