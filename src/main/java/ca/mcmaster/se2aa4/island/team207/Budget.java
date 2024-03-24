@@ -15,21 +15,21 @@ public class Budget {
   public void getInit(String s) {
     Initialize initialize = new Initialize();
     initialize.initialize(s);
-    battery = initialize.getBatteryLevel();
+    setBattery(initialize.getBatteryLevel());
   }
 
   public void getResult(String s){
     Result result = new Result();
     result.printResult(s);
-    totalCost = result.getCost(s);
+    setTotalCost(result.getCost(s));
   }
 
   public Integer useBattery(){
-    return battery;
+    return getBattery();
   }
 
   public Integer useCost(){
-    return totalCost;
+    return getTotalCost();
   }
 
 
@@ -37,6 +37,22 @@ public class Budget {
     newCost = battery - totalCost;
     return newCost;
 
+  }
+  
+  private void setTotalCost(Integer totalCost){
+    this.totalCost = totalCost;
+  }
+
+  private Integer getTotalCost(){
+    return this.totalCost;
+  }
+  
+  private void setBattery(Integer battery){
+    this.battery = battery;
+  }
+
+  private Integer getBattery(){
+    return this.battery;
   }
 
 }

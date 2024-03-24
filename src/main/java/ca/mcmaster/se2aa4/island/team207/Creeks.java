@@ -11,6 +11,6 @@ public class Creeks {
     }
 
     public List<String> getCreeks() {
-        return creekIDs;
+        return new ArrayList<>(creekIDs);
     }
 }

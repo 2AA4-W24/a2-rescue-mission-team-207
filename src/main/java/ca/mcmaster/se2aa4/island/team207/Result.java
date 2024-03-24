@@ -11,8 +11,7 @@ import org.json.JSONTokener;
 public class Result {
 
     private final Logger logger = LogManager.getLogger();
-
-    Position position = new Position();
+    private Position position = new Position();
 
     public JSONObject printResult (String s) {
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));

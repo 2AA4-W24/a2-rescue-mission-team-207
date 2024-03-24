@@ -3,12 +3,13 @@ package ca.mcmaster.se2aa4.island.team207;
 import ca.mcmaster.se2aa4.island.team207.Decisions.Decision;
 public class Position {
 
-    public int x_position = 0;
-    public int y_position = 0;
+    private int x_position = 0;
+    private int y_position = 0;
     private Decision decision = new Decision();
     private String decisionMade = decision.getDecisionMade();
     private String direction = decision.getDirection();
 
+    
     public void updateDecision(Decision decision) {
         this.decision = decision;
         this.decisionMade = decision.getDecisionMade();
