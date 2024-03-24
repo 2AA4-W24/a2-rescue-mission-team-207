@@ -13,4 +13,16 @@ public class Creeks {
     public List<String> getCreeks() {
         return creekIDs;
     }
+
+    public String printCreeks(List<Integer> creekX, List<Integer> creekY) {
+        StringBuilder creekXpos = new StringBuilder();
+        for (Integer x : creekX) {
+            creekXpos.append(x).append(" ");
+        }
+        StringBuilder creekYpos = new StringBuilder();
+        for (Integer y : creekY) {
+            creekYpos.append(y).append(" ");
+        }
+        return "Creek X positions: " + creekXpos.toString() + "\nCreek Y positions: " + creekYpos.toString();
+    }
 }

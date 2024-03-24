@@ -57,13 +57,11 @@ public class Position {
     }
 
     public int get_positionX() {
-        int posX = x_position;
-        return posX;
+        return x_position;
     }
 
     public int get_positionY() {
-        int posY = y_position;
-        return posY;
+        return y_position;
     }
 
 

@@ -83,9 +83,9 @@ public class Explorer implements IExplorerRaid {
         JSONObject resultData = result.printResult(s);
         decision.useEchoResults(resultData);
 
-        String creekPOIs = creekResult.useScanCreeks(resultData);
-        if (creekPOIs != "null") {
-            creeks.addCreek(creekPOIs);
+        String creekPOI = creekResult.useScanCreeks(resultData);
+        if (creekPOI != "null") {
+            creeks.addCreek(creekPOI);
             creekX.add(position.get_positionX());
             creekY.add(position.get_positionY());
         }
@@ -113,10 +113,11 @@ public class Explorer implements IExplorerRaid {
         ShortestPath shortestPath = new ShortestPath();
         List<String> creeksList = creeks.getCreeks();
         String creeksFound = String.join(", ", creeksList);
+        String siteFound = site.getSite();
         String closest_creek = shortestPath.findClosestCreek(creeksList, creekX, creekY, siteposx, siteposy);
-        String creekPositions = shortestPath.printCreeks(creekX, creekY);
+        String creekPositions = creeks.printCreeks(creekX, creekY);
         logger.info("Creeks found: " + creeksFound);
-        logger.info("Site found: " + site.getSite());
+        logger.info("Site found: " + siteFound);
         logger.info("Site X position: " + siteposx);
         logger.info("Site Y position: " + siteposy);
         logger.info(creekPositions);
