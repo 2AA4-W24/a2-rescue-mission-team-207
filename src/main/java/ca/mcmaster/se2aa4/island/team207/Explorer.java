@@ -21,7 +21,7 @@ public class Explorer implements IExplorerRaid {
     private final Site site = new Site();
     private CreekResults creekResult = new CreekResults();
     private SiteResults siteResult = new SiteResults();
-    private static final int MIN_BUDGET_THRESHOLD = 30;
+    private static final int minBudget = 30;
     private int siteposx;
     private int siteposy;
     private double min_distance = 100;
@@ -48,9 +48,8 @@ public class Explorer implements IExplorerRaid {
         logger.info("** Initialization info:\n {}",info.toString(2));
         init_direction = info.getString("heading");
         logger.info("The drone is facing {}", init_direction);
-        initialize.initialize(s);
         battery.getInit(s);
-        batteryLevel = battery.useBattery();
+        batteryLevel = battery.getBattery();
 
         Direction initialDirection = Direction.stringToDirection(init_direction);
         Direction leftDirection = initialDirection.getLeftDirection();
@@ -66,7 +65,7 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String takeDecision() {
-        if (remainingBudget < MIN_BUDGET_THRESHOLD) {
+        if (remainingBudget < minBudget) {
             logger.info("Remaining budget is low. Stopping exploration.");
             return decision.stopDecision();
         }

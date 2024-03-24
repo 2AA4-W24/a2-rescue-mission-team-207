@@ -6,19 +6,11 @@ public class Battery {
 
     public void getInit(String s) {
         Initialize initialize = new Initialize();
-        initialize.initialize(s);
-        setBattery(initialize.getBatteryLevel());
-    }
-
-    private void setBattery(Integer battery){
-        this.battery = battery;
+        initialize.setInitial(s);
+        battery = initialize.getBatteryLevel();
     }
     
-    private Integer getBattery(){
-        return this.battery;
-    }
-
-    public Integer useBattery(){
-        return getBattery();
+    public Integer getBattery(){
+        return battery;
     }
 }
