@@ -26,7 +26,7 @@ public class Explorer implements IExplorerRaid {
     private int siteposy;
     private double min_distance = 100;
     private String closest_creek = "";
-    public int totalCost = 0;
+    private int totalCost = 0;
     private List<Integer> creekX = new ArrayList<>();
     private List<Integer> creekY = new ArrayList<>();
     private Decision decision = Decision.getInstance();
