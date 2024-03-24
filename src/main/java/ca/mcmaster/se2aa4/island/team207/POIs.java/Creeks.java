@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.island.team207;
+package ca.mcmaster.se2aa4.island.team207.POIs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,6 @@ public class Creeks {
     }
 
     public List<String> getCreeks() {
-        return new ArrayList<>(creekIDs);
+        return creekIDs;
     }
 }

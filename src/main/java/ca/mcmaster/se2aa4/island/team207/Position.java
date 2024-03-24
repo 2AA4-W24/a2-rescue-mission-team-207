@@ -47,8 +47,7 @@ public class Position {
             if (direction.equals("SW") || direction.equals("WS")) {
                 x_position -= 1;
                 y_position -= 1;
-            }
-            
+            }  
         }
     }
 

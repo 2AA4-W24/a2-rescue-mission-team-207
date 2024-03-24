@@ -25,9 +25,6 @@ public class Decision {
     private int borderRange = 200;
     private String currentParameter = " ";
 
-    private String creekResult = " ";
-    private String siteResult = " ";
-
     private static Decision instance;
 
     public static Decision getInstance() {
@@ -77,6 +74,14 @@ public class Decision {
         return state.makeDecision(rightDir, leftDir, oppositeDir, initialDir);
     }
 
+    public void useEchoResults(JSONObject resultData) {
+        Result result = new Result();
+        if (decisionMade.equals("echo")){
+            echoResult = result.echo_result(resultData);
+            borderRange = result.border_range(resultData);
+        }       
+    }
+    
     public boolean getFoundGround() {
         return foundGround;
     }
@@ -139,32 +144,6 @@ public class Decision {
 
     public void setTurnCounter(int counter) {
         turn_counter = counter;
-    }
-
-    public void useEchoResults(JSONObject resultData) {
-        Result result = new Result();
-        if (decisionMade.equals("echo")){
-            echoResult = result.echo_result(resultData);
-            borderRange = result.border_range(resultData);
-        }       
-    }
-
-    public String useScanCreeks(JSONObject resultData) {
-        Result result = new Result();
-        if (decisionMade.equals("scan")) {
-            creekResult = result.scan_creeks(resultData);
-            return creekResult;
-        }
-        return "null";
-    }
-  
-    public String useScanSite(JSONObject resultData) {
-        Result result = new Result();
-        if (decisionMade.equals("scan")) {
-            siteResult = result.scan_site(resultData);
-            return siteResult;
-        }
-        return "null";
     }
 
     public int getEchoResult() {

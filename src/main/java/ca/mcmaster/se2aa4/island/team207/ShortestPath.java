@@ -5,8 +5,6 @@ import java.lang.StringBuilder;
 
 public class ShortestPath {
   
-  private StringBuilder stringBuilder = new StringBuilder();
-  
   public String findClosestCreek(List<String> creeksList, List<Integer> creekX, List<Integer> creekY, int siteposx, int siteposy) {
     double min_distance = 100;
     String closest_creek = "";
