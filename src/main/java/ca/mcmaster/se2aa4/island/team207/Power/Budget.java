@@ -8,6 +8,7 @@ import java.io.StringReader;
 public class Budget {
   private Integer newCost= 0;
 
+  // get difference between battery and total cost
   public Integer getDifference(Integer battery, Integer totalCost) {
     newCost =  battery - totalCost;
     return newCost;

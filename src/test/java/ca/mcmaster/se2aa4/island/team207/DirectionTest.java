@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class DirectionTest {
 
+    // test the opposite direction
     @Test
     public void testGetOppositeDirection() {
         assertEquals(Direction.SOUTH, Direction.NORTH.getOppositeDirection());
@@ -13,6 +14,7 @@ public class DirectionTest {
         assertEquals(Direction.EAST, Direction.WEST.getOppositeDirection());
     }
 
+    // test the left direction
     @Test
     public void testGetLeftDirection() {
         assertEquals(Direction.WEST, Direction.NORTH.getLeftDirection());
@@ -21,6 +23,7 @@ public class DirectionTest {
         assertEquals(Direction.SOUTH, Direction.WEST.getLeftDirection());
     }
 
+    // test the right direction
     @Test
     public void testGetRightDirection() {
         assertEquals(Direction.EAST, Direction.NORTH.getRightDirection());
@@ -29,6 +32,7 @@ public class DirectionTest {
         assertEquals(Direction.NORTH, Direction.WEST.getRightDirection());
     }
 
+    // test the string to direction
     @Test
     public void testStringToDirection() {
         assertEquals(Direction.NORTH, Direction.stringToDirection("N"));
@@ -37,6 +41,7 @@ public class DirectionTest {
         assertEquals(Direction.WEST, Direction.stringToDirection("W"));
     }
 
+    // test the direction to string
     @Test
     public void testDirectionToString() {
         assertEquals("N", Direction.NORTH.directionToString());

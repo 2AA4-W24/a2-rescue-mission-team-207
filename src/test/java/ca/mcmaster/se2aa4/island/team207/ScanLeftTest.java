@@ -14,11 +14,13 @@ public class ScanLeftTest {
     private final String oppositeDir = "W";
     private final String initialDir = "E";
 
+    // setup the decision object
     @BeforeEach
     public void setUp() {
         decision = Decision.getInstance();
     }
 
+    // test the make decision method for left scanning
     @Test
     public void testMakeDecision() {
         ScanLeft scanLeft = new ScanLeft();

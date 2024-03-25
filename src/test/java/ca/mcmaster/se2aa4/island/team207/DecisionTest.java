@@ -13,18 +13,21 @@ public class DecisionTest {
 
     private Decision decision;
 
+    // setup the decision object
     @BeforeEach
     public void setUp() {
         decision = Decision.getInstance();
         decision.setBorderRange(0);
     }
 
+    // test the stop decision state
     @Test
     public void testStopDecision() {
         String decisionString = decision.stopDecision();
         assertEquals("{\"action\":\"stop\"}", decisionString);
     }
 
+    // test the move decision state
     @Test
     public void testDecisionControl() {
         String state = decision.decisionControl("S", "N", "W", "E");

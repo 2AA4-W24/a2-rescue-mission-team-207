@@ -5,6 +5,7 @@ import java.lang.StringBuilder;
 
 public class ShortestPath {
   
+  // find the closest creek to the site using Pythagorean distance
   public String findClosestCreek(List<String> creeksList, List<Integer> creekX, List<Integer> creekY, int siteposx, int siteposy) {
     double min_distance = 100;
     String closest_creek = "";

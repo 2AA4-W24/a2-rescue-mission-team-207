@@ -6,6 +6,7 @@ import org.json.JSONTokener;
 import java.io.StringReader;
 
 public class GetPOIs {
+    // scan for creeks
     public String scan_creeks(JSONObject extraInfo) {
         JSONArray creeks = extraInfo.getJSONArray("creeks");
         if (creeks.isNull(0)) {
@@ -16,6 +17,7 @@ public class GetPOIs {
             return creekID;
         }
     }
+    // scan for sites
     public String scan_site(JSONObject extraInfo) {
         JSONArray sites = extraInfo.getJSONArray("sites");
         if (sites.isNull(0)) {

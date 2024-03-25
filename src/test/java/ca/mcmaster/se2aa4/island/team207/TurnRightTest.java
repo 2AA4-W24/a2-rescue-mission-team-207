@@ -14,11 +14,13 @@ public class TurnRightTest {
     private final String oppositeDir = "S";
     private final String initialDir = "N";
 
+    // setup the decision object
     @BeforeEach
     public void setUp() {
         decision = Decision.getInstance();
     }
 
+    // test the make decision method for right turning
     @Test
     public void testMakeDecision() {
         TurnRight turnRight = new TurnRight();
@@ -34,6 +36,7 @@ public class TurnRightTest {
         }
     }
 
+    // get the expected action based on the turn counter
     private String getExpectedAction(int turn_counter) {
         switch (turn_counter) {
             case 0: case 3: case 9: case 11:

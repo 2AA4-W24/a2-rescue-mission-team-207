@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 public class Stop implements DecisionState {
     
+    // make decision based on Stop state (stop if border range is reached)
     @Override
     public String makeDecision(String rightDir, String leftDir, String oppositeDir, String initialDir) {
 

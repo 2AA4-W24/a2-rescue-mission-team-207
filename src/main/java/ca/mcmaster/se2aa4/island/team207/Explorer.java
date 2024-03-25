@@ -56,6 +56,7 @@ public class Explorer implements IExplorerRaid {
         Direction rightDirection = initialDirection.getRightDirection();
         Direction oppositeDirection = initialDirection.getOppositeDirection();
 
+        // initialize directions
         rightDir = rightDirection.directionToString();
         leftDir = leftDirection.directionToString();
         oppositeDir = oppositeDirection.directionToString();
@@ -65,10 +66,12 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String takeDecision() {
+        // check if budget is low and then stop
         if (remainingBudget < minBudget) {
             logger.info("Remaining budget is low. Stopping exploration.");
             return decision.stopDecision();
         }
+        // make decision based on current state
         else {
             return decision.decisionControl(rightDir, leftDir, oppositeDir, initialDir);
         }     
@@ -83,6 +86,7 @@ public class Explorer implements IExplorerRaid {
         JSONObject resultData = result.printResult(s);
         decision.useEchoResults(resultData);
 
+        // get creek positions
         String creekPOI = creekResult.useScanCreeks(resultData);
         if (creekPOI != "null") {
             creeks.addCreek(creekPOI);
@@ -90,6 +94,7 @@ public class Explorer implements IExplorerRaid {
             creekY.add(position.get_positionY());
         }
 
+        // get site position
         String sitePOI = siteResult.useScanSite(resultData);
         if (sitePOI != "null") {
             site.setSite(sitePOI);
@@ -97,7 +102,7 @@ public class Explorer implements IExplorerRaid {
             siteposy = position.get_positionY();
         }
 
-        
+        // calculate remaining budget
         totalCost += cost.getCost(s);
         remainingBudget = budget.getDifference(batteryLevel, totalCost);
         logger.info("Total cost: " + totalCost);
@@ -114,7 +119,11 @@ public class Explorer implements IExplorerRaid {
         List<String> creeksList = creeks.getCreeks();
         String creeksFound = String.join(", ", creeksList);
         String siteFound = site.getSite();
+
+        // find closest creek to site
         String closest_creek = shortestPath.findClosestCreek(creeksList, creekX, creekY, siteposx, siteposy);
+
+        //log info for checking
         String creekPositions = creeks.printCreeks(creekX, creekY);
         logger.info("Creeks found: " + creeksFound);
         logger.info("Site found: " + siteFound);
@@ -122,6 +131,8 @@ public class Explorer implements IExplorerRaid {
         logger.info("Site Y position: " + siteposy);
         logger.info(creekPositions);
         logger.info("Closest creek to site: " + closest_creek);
+        
+        // creek data to ACME
         return closest_creek;
     }
 

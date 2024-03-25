@@ -4,7 +4,8 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 public class FindLand implements DecisionState {
-    
+
+    // make decision based on FindLand state
     @Override
     public String makeDecision(String rightDir, String leftDir, String oppositeDir, String initialDir) {
 

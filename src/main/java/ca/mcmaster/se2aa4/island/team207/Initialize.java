@@ -11,16 +11,19 @@ public class Initialize {
     private int batteryLevel;
     private String direction;
 
+    // set initial battery level and direction
     public void setInitial(String s) {
         JSONObject info = new JSONObject(new JSONTokener(new StringReader(s)));
         this.batteryLevel = info.getInt("budget");
         this.direction = info.getString("heading");
     }
 
+    // get battery level
     public int getBatteryLevel() {
         return batteryLevel;
     }
 
+    // get direction
     public String getDirection() {
         return direction;
     }

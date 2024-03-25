@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class InitializeTest {
 
+    // test the set initial method
     @Test
     public void testSetInitial() {
         String input = "{\"budget\": 9999999, \"heading\": \"W\"}";

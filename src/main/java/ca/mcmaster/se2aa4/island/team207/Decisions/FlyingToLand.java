@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 public class FlyingToLand implements DecisionState {
     
+    // make decision based on FlyingToLand state
     @Override
     public String makeDecision(String rightDir, String leftDir, String oppositeDir, String initialDir) {
 

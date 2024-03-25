@@ -5,10 +5,12 @@ import org.json.JSONObject;
 public class Site {
     private String site = "";
 
+    // construct Site object
     public void setSite(String site) {
         this.site = site;
     }
 
+    // get site
     public String getSite() {
         return site;
     }

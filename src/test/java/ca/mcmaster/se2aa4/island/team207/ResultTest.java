@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ResultTest {
 
+    // test the print result method
     @Test
     public void testPrintResult() {
         Result result = new Result();
@@ -17,6 +18,7 @@ public class ResultTest {
         assertEquals("test", extraInfo.getString("extraInfo"));
     }
 
+    // test the echo result method
     @Test
     public void testEchoResultGroundFound() {
         Result result = new Result();
@@ -26,6 +28,7 @@ public class ResultTest {
         assertEquals(5, range);
     }
 
+    // test the echo result method for ground not found
     @Test
     public void testEchoResultGroundNotFound() {
         Result result = new Result();

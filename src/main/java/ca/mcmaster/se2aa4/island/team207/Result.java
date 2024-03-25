@@ -12,6 +12,7 @@ public class Result {
 
     private final Logger logger = LogManager.getLogger();
     
+    // print the result of the action
     public JSONObject printResult (String s) {
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
         logger.info("** Response received:\n"+response.toString(2));
@@ -24,6 +25,7 @@ public class Result {
         return extraInfo;
     }
 
+    // get the cost of the action
     public int echo_result(JSONObject extraInfo) {
         String found = extraInfo.getString("found");
         logger.info("Found: {}", found);
@@ -37,6 +39,7 @@ public class Result {
         }
     }
 
+    // get the range of the border
     public int border_range(JSONObject extraInfo) {
         String found = extraInfo.getString("found");
         Integer range = extraInfo.getInt("range");

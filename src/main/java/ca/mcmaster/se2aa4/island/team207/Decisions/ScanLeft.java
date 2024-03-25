@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 public class ScanLeft implements DecisionState {
     
+    //make decision based on ScanLeft state
     @Override
     public String makeDecision(String rightDir, String leftDir, String oppositeDir, String initialDir) {
 

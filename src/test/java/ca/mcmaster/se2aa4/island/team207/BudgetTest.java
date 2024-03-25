@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class BudgetTest {
 
+    // test the budget between battery and total cost
     @Test
     public void testGetDifference() {
         int battery = 100; 

@@ -27,6 +27,7 @@ public class Decision {
 
     private static Decision instance;
 
+    // create instance of Decision
     public static Decision getInstance() {
         if (instance == null) {
             instance = new Decision();
@@ -34,6 +35,7 @@ public class Decision {
         return instance;
     }
   
+    // stop drone if budget is low
     public String stopDecision() {
         JSONObject stop = new JSONObject();
         stop.put("action", "stop");
@@ -42,6 +44,7 @@ public class Decision {
         return stopString;
     }
 
+    // maintain conditions for each decision state
     public String decisionControl(String rightDir, String leftDir, String oppositeDir, String initialDir) {
         JSONObject decision = new JSONObject();
         Initialize initialize = new Initialize();
@@ -74,6 +77,7 @@ public class Decision {
         return state.makeDecision(rightDir, leftDir, oppositeDir, initialDir);
     }
 
+    // set echo results and border range
     public void useEchoResults(JSONObject resultData) {
         Result result = new Result();
         if (decisionMade.equals("echo")){
@@ -82,6 +86,7 @@ public class Decision {
         }       
     }
     
+    // getters and setters
     public boolean getFoundGround() {
         return foundGround;
     }

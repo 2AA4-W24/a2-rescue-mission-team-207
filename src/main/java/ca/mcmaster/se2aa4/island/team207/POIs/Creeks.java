@@ -6,14 +6,17 @@ import java.util.List;
 public class Creeks {
     private List<String> creekIDs = new ArrayList<>();
 
+    // add creek to list of creeks
     public void addCreek(String creekID) {
         creekIDs.add(creekID);
     }
 
+    // get list of creeks
     public List<String> getCreeks() {
         return creekIDs;
     }
 
+    // print creeks
     public String printCreeks(List<Integer> creekX, List<Integer> creekY) {
         StringBuilder creekXpos = new StringBuilder();
         for (Integer x : creekX) {

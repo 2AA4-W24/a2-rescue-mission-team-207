@@ -9,10 +9,12 @@ public class SiteResults {
     private String siteResult = " ";
     private Decision decision;
 
+    // construct SiteResults object
     public SiteResults() {
         decision = Decision.getInstance();
     }
 
+    // scan for sites
     public String useScanSite(JSONObject resultData) {
         GetPOIs pois = new GetPOIs();
         if (decision.getDecisionMade().equals("scan")) {

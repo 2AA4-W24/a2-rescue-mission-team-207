@@ -7,6 +7,7 @@ import java.io.StringReader;
 
 public class Cost {
 
+    // get cost of each action
     public int getCost (String s) {
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
         Integer cost = response.getInt("cost");

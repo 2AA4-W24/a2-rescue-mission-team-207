@@ -9,13 +9,14 @@ public class Position {
     private String decisionMade = decision.getDecisionMade();
     private String direction = decision.getDirection();
 
-    
+    // construct Position object
     public void updateDecision(Decision decision) {
         this.decision = decision;
         this.decisionMade = decision.getDecisionMade();
         this.direction = decision.getDirection();
     }
     
+    // change position
     public void change_position() {
         if (decisionMade.equals("fly")) {
             if (direction.equals("N")) {
@@ -51,15 +52,18 @@ public class Position {
         }
     }
 
+    // get position
     public String get_position() {
         String position = "(" + x_position + ", " + y_position + ")";
         return position;
     }
 
+    // get x position
     public int get_positionX() {
         return x_position;
     }
 
+    // get y position
     public int get_positionY() {
         return y_position;
     }

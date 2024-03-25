@@ -8,6 +8,7 @@ import java.util.List;
 
 public class ShortestPathTest {
 
+    // test the find closest creek method
     @Test
     public void testFindClosestCreek() {
         List<String> creeksList = Arrays.asList("Creek1", "Creek2", "Creek3");

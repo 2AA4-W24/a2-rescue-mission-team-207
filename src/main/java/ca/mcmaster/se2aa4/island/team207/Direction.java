@@ -6,6 +6,7 @@ public enum Direction {
     EAST,
     WEST;
 
+    // Get the opposite direction to the initial direction
     public Direction getOppositeDirection() {
         switch (this) {
             case NORTH:
@@ -21,6 +22,7 @@ public enum Direction {
         }
     }
 
+    // Get the direction to the left of initial direction
     public Direction getLeftDirection() {
         switch (this) {
             case NORTH:
@@ -36,6 +38,7 @@ public enum Direction {
         }
     }
 
+    // Get the direction to the right of initial direction
     public Direction getRightDirection() {
         switch (this) {
             case NORTH:
@@ -51,6 +54,7 @@ public enum Direction {
         }
     }
 
+    // Convert a string to a direction
     public static Direction stringToDirection(String directionString) {
         switch (directionString) {
             case "N":
@@ -66,6 +70,7 @@ public enum Direction {
         }
     }
 
+    // Convert a direction to a string
     public String directionToString() {
         switch (this) {
             case NORTH:

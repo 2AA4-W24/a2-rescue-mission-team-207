@@ -9,10 +9,12 @@ public class CreekResults {
     private String creekResult = " ";
     private Decision decision;
 
+    // construct CreekResults object
     public CreekResults() {
         decision = Decision.getInstance();
     }
     
+    // scan for creeks
     public String useScanCreeks(JSONObject resultData) {
         GetPOIs pois = new GetPOIs();
         if (decision.getDecisionMade().equals("scan")) {
